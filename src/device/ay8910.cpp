@@ -5,6 +5,9 @@
 #include "ay8910.h"
 #include "log.h"
 
+#ifdef HAVE_PSG_REALHW
+#include "psg_realhw/psg_realhw_backend.h"
+#endif
 
 #define MAX_OUTPUT	(0x7fff)
 #define STEP 		(0x8000)
@@ -173,6 +176,12 @@ void cAY8910::_WriteReg( BYTE r, BYTE v )
 			PortBwrite( v );
 		break;
 	}
+
+#ifdef HAVE_PSG_REALHW
+    {
+        psg_realhw_write_reg( r, PSG::GetReg(r) );
+    }
+#endif
 #else
 	int old;
 	
@@ -279,6 +288,12 @@ void cAY8910::_WriteReg( BYTE r, BYTE v )
 			PortBwrite( Regs[AY_PORTB] );
 		break;
 	}
+
+#ifdef HAVE_PSG_REALHW
+    {
+        psg_realhw_write_reg( r, Regs[r] );
+    }
+#endif
 #endif
 }
 

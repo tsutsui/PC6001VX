@@ -314,6 +314,17 @@ HEADERS  += \
     src/voice.h \
     src/vsurface.h
 
+# --- real PSG output (Raspberry Pi GPIO) ---
+DEFINES += HAVE_PSG_REALHW
+
+SOURCES += \
+    src/psg_realhw/psg_realhw_rpi_gpio.cpp \
+    src/psg_realhw/psg_backend_rpi_gpio.c
+HEADERS += \
+    src/psg_realhw/psg_realhw_backend.h \
+    src/psg_realhw/psg_backend_rpi_gpio.h \
+    src/psg_realhw/psg_backend.h
+
 FORMS    += \
     src/Qt/configdialog.ui \
     src/Qt/systeminfodialog.ui \
